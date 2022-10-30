@@ -28,25 +28,25 @@ public final class Constants {
 
   public static final class CanConstants {
 
-    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 5;
-    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 9;
-    public static final int FRONT_LEFT_MODULE_STEER_CANCODER = 1;
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 313.09;// -Math.toRadians(0.0);
+    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 5; //FIXME: CAN ID of front left drive motor
+    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 9; //FIXME: CAN ID of front left steer motor
+    public static final int FRONT_LEFT_MODULE_STEER_CANCODER = 1; //FIXME: CAN ID of front left CANCoder
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = 313.09; //FIXME: reading of front left CANCoder (in degrees) after manually setting wheel to forward (axle bolt head to the right side of the robot)
 
-    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 6;
-    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 10;
-    public static final int FRONT_RIGHT_MODULE_STEER_CANCODER = 2;
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 292.27;//-Math.toRadians(-42);
+    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 6; //FIXME: CAN ID of front right drive motor
+    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 10; //FIXME: CAN ID of front right steer motor
+    public static final int FRONT_RIGHT_MODULE_STEER_CANCODER = 2; //FIXME: CAN ID of front right CANCoder
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = 292.27; //FIXME: reading of front right CANCoder (in degrees) after manually setting wheel to forward (axle bolt head to the right side of the robot)
 
-    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 7;
-    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 11;
-    public static final int BACK_LEFT_MODULE_STEER_CANCODER = 3;
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = 228.79;//-Math.toRadians(0.0);
+    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 7; //FIXME: CAN ID of back left drive motor
+    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 11; //FIXME: CAN ID of back left steer motor
+    public static final int BACK_LEFT_MODULE_STEER_CANCODER = 3; //FIXME: CAN ID of back left CANCoder
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = 228.79; //FIXME: reading of back left CANCoder (in degrees) after manually setting wheel to forward (axle bolt head to the right side of the robot)
 
-    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 8;
-    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 12;
-    public static final int BACK_RIGHT_MODULE_STEER_CANCODER = 4;
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 104.48;//-Math.toRadians(-105);
+    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 8; //FIXME: CAN ID of back right drive motor
+    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 12; //FIXME: CAN ID of back right steer motor
+    public static final int BACK_RIGHT_MODULE_STEER_CANCODER = 4; //FIXME: CAN ID of back right CANCoder
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = 104.48; //FIXME: reading of back right CANCoder (in degrees) after manually setting wheel to forward (axle bolt head to the right side of the robot)
 
   }
 
@@ -62,9 +62,8 @@ public final class Constants {
     public static final boolean kFrontRightDriveMotorReversed = true;
     public static final boolean kBackRightDriveMotorReversed = true;
 
-    public static final double kTrackWidth = Units.inchesToMeters(29.5);
-    // Distance between centers of right and left wheels on robot
-    public static final double kWheelBase = Units.inchesToMeters(29.5);
+    public static final double kTrackWidth = Units.inchesToMeters(29.5); //FIXME: Distance between centers of right and left wheels on robot
+    public static final double kWheelBase = Units.inchesToMeters(29.5); //FIXME: Distance between centers of front and back wheels on robot
 
     public enum ModulePosition {
       FRONT_LEFT,
@@ -90,6 +89,9 @@ public final class Constants {
     // for *your* robot's drive.
     // The SysId tool provides a convenient method for obtaining these values for
     // your robot.
+
+    //FIXME: For just a drive base these values are fine, but definitely run System Identification for the drive motors to find new values once the robot is assembled, as it will have significantly more mass.
+
     public static final double ksVolts = 1;
     public static final double kvVoltSecondsPerMeter = 0.8;
     public static final double kaVoltSecondsSquaredPerMeter = 0.15;
@@ -126,13 +128,13 @@ public final class Constants {
     // ModuleConfiguration MK4I_L2
     public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
 
-    public static double mk4iL2DriveGearRatio = 1 / ((14.0 / 50.0) * (27.0 / 17.0) * (15.0 / 45.0));// 8.14 .122807
+    public static double driveGearRatio = 1 / ((14.0 / 50.0) * (27.0 / 17.0) * (15.0 / 45.0)); //FIXME: This drive gear ratio is for the L2 configuration. If you're using L1 or L3, the gear ratios can be obtained from the chart at https://www.swervedrivespecialties.com/products/mk4i-swerve-module.
 
-    public static double mk4iL2TurnGearRatio = 1 / ((14.0 / 50.0) * (10.0 / 60.0));// 21.43 1/.046667
+    public static double steerGearRatio = 1 / ((14.0 / 50.0) * (10.0 / 60.0)); //The steering gear ratio is the same for all 3 configurations
 
     public static final double kDriveMetersPerEncRev =
 
-        (kWheelDiameterMeters * Math.PI) / mk4iL2DriveGearRatio;
+        (kWheelDiameterMeters * Math.PI) / driveGearRatio;
 
     // in 1 minute at 1 rpm encoder drive moves kDriveMetersPerEncRev
     // so in 1 second encoder travels 1/60 revs = kDriveMetersPerEncRev/60
@@ -142,14 +144,11 @@ public final class Constants {
 
     public static double kEncoderRevsPerMeter = 1 / kDriveMetersPerEncRev;
 
-    public static double kFreeMetersPerSecond = 5600 * kDriveEncRPMperMPS;// 3.6
+    public static double kFreeMetersPerSecond = 5600 * kDriveEncRPMperMPS;
   
-    public static final double kTurningDegreesPerEncRev =
+    public static final double kTurningDegreesPerEncRev = 360 / steerGearRatio;
 
-        360 / mk4iL2TurnGearRatio;
-
-    // max turn speed = (5400/ 21.43) revs per min 240 revs per min 4250 deg per
-    // min
+    // max turn speed = (5400/ 21.43) revs per min 240 revs per min 4250 deg per min
     public static final double kPModuleTurningController = .025;
 
     public static final double kPModuleDriveController = .2;

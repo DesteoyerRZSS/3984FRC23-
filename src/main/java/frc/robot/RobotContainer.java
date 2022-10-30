@@ -29,77 +29,42 @@ public class RobotContainer {
 
   // The driver's controller
 
+  //FIXME: Currently set to work with two joysticks (lateral movement on left and rotation on right). You may want to change.
+
   private final Joystick m_leftJoystick = new Joystick(0);
   private final Joystick m_rightJoystick = new Joystick(1);
 
-  private final JoystickButton m_right2 = new JoystickButton(m_rightJoystick, 2);
+  private final JoystickButton m_rightTrigger = new JoystickButton(m_rightJoystick, 1);
+  private final JoystickButton m_rightThumbBtn = new JoystickButton(m_rightJoystick, 2);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    m_swerveSys.setIdleMode(true); //FIXME: Drive motors brake on idle when true
+
     // Configure the button bindings
+    configDriverBindings();
+    configOperatorBindings();
 
     initializeAutoChooser();
-    // sc.showAll();
-    // Configure default commands
-   // m_swerveSys.setDefaultCommand(
-        // The left stick controls translation of the robot.
-        // Turning is controlled by the X axis of the right stick.
-        // new SetSwerveDrive(
-        // m_swerveSys,
+  }
 
-        // () -> -m_coDriverController.getRawAxis(1),
-        // () -> -m_coDriverController.getRawAxis(0),
-        // () -> -m_coDriverController.getRawAxis(4)));
+  private void configDriverBindings() {
+    m_swerveSys.setDefaultCommand(
+    new SetSwerveDriveCmd(
+        m_swerveSys,
+        //FIXME: Configure driver controls here
+        () -> m_leftJoystick.getY(), // Throttle input
+        () -> m_leftJoystick.getX(), // Strafe input
+        () -> m_rightJoystick.getX(), // Rotation input
+        () -> m_rightTrigger.get())); // Lock wheels trigger
 
-        m_swerveSys.setIdleMode(true);
+    m_rightThumbBtn.whenPressed(new ZeroHeadingCmd(m_swerveSys)); // Zeroes robot heading when pressed
+  }
 
-        m_swerveSys.setDefaultCommand(
-        new SetSwerveDriveCmd(
-            m_swerveSys,
-            () -> m_leftJoystick.getY(),
-            () -> m_leftJoystick.getX(),
-            () -> m_rightJoystick.getX(),
-            () -> m_leftJoystick.getRawButton(1)));
+  private void configOperatorBindings() {
 
-    // driver.leftTrigger.whileHeld(new JogTurnModule(
-    //     m_swerveSys,
-    //     () -> -m_coDriverController.getRawAxis(1),
-    //     () -> m_coDriverController.getRawAxis(0),
-    //     () -> m_coDriverController.getRawAxis(2),
-    //     () -> m_coDriverController.getRawAxis(3)));
-
-    // // individual modules
-    // driver.leftBumper.whileHeld(new JogDriveModule(
-    //     m_swerveSys,
-    //     () -> -m_coDriverController.getRawAxis(1),
-    //     () -> m_coDriverController.getRawAxis(0),
-    //     () -> m_coDriverController.getRawAxis(2),
-    //     () -> m_coDriverController.getRawAxis(3),
-    //     true));
-
-    // // all modules
-    // driver.rightBumper.whileHeld(new JogDriveModule(
-    //     m_swerveSys,
-    //     () -> -m_coDriverController.getRawAxis(1),
-    //     () -> m_coDriverController.getRawAxis(0),
-    //     () -> m_coDriverController.getRawAxis(2),
-    //     () -> m_coDriverController.getRawAxis(3),
-    //     false));     
-
-        
-    // position turn modules individually
-    // driver.X_button.whenPressed(new PositionTurnModule(m_swerveSys,
-    // ModulePosition.FRONT_LEFT));
-    // driver.A_button.whenPressed(new PositionTurnModule(m_swerveSys,
-    // ModulePosition.FRONT_RIGHT));
-    // driver.B_button.whenPressed(new PositionTurnModule(m_swerveSys,
-    // ModulePosition.BACK_LEFT));
-    // driver.Y_button.whenPressed(new PositionTurnModule(m_swerveSys,
-    // ModulePosition.BACK_RIGHT));
-
-    m_right2.whenPressed(new ZeroHeadingCmd(m_swerveSys));
   }
 
   private void initializeAutoChooser() {

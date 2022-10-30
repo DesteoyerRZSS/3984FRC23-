@@ -78,8 +78,8 @@ public class SwerveSys extends SubsystemBase {
               DriveConstants.kBackRightDriveMotorReversed,
               DriveConstants.kBackRightTurningMotorReversed,
               CanConstants.BACK_RIGHT_MODULE_STEER_OFFSET)));
-  // The gyro sensor
 
+  //FIXME: The gyro used by the robot. Update if you use a different gyro. 
   private final Gyro m_gyro = new ADXRS450_Gyro();
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
@@ -153,8 +153,14 @@ public class SwerveSys extends SubsystemBase {
     if(lockWheels) {
       SmartDashboard.putBoolean("isLocked", true);
       moduleStates = ModuleMap
-          .of(new SwerveModuleState(-0.1, new Rotation2d(Units.degreesToRadians(45))), new SwerveModuleState(-0.1, new Rotation2d(-45)), new SwerveModuleState(0.1, new Rotation2d(-45)), new SwerveModuleState(0.1, new Rotation2d(45)));
-    }  
+          .of(
+            new SwerveModuleState(-0.01, new Rotation2d(Units.degreesToRadians(45))),
+            new SwerveModuleState(-0.01, new Rotation2d(Units.degreesToRadians(-45))),
+            new SwerveModuleState(0.01, new Rotation2d(Units.degreesToRadians(-45))),
+            new SwerveModuleState(0.01, new Rotation2d(Units.degreesToRadians(45))));
+          // Turns all the wheels inward, making it much more difficult to push the robot.
+          // The speed is set to +/-0.01 m/s (all wheels rotating inwards) because the wheels won't turn if the inputted speed is 0.
+        }  
     else {
       SmartDashboard.putBoolean("isLocked", false);
       ChassisSpeeds chassisSpeeds = m_fieldOriented

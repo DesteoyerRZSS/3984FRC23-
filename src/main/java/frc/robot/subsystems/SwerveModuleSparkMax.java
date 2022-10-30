@@ -240,7 +240,7 @@ public class SwerveModuleSparkMax extends SubsystemBase {
           + m_modulePosition.toString(), m_turnCANcoder.getStickyFaults());
     }
 
-    SmartDashboard.putNumber("drive enc [" + m_modulePosition.toString() + "]", m_swerveSysEncoder.getPosition());
+    SmartDashboard.putNumber("steer enc [" + m_modulePosition.toString() + "]", m_turningEncoder.getPosition());
 
   }
 
