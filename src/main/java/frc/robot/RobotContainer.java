@@ -41,7 +41,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    m_swerveSys.setIdleMode(true); //FIXME: Drive motors brake on idle when true
+    m_swerveSys.setIdleMode(true);
 
     // Configure the button bindings
     configDriverBindings();
