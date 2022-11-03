@@ -226,7 +226,6 @@ public class SwerveSys extends SubsystemBase {
 
   public double getHeadingDegrees() {
     return -Math.IEEEremainder((m_gyro.getAngle()), 360);
-
   }
 
   public Rotation2d getHeadingRotation2d() {
