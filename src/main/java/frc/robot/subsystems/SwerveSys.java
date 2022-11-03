@@ -79,7 +79,7 @@ public class SwerveSys extends SubsystemBase {
               DriveConstants.kBackRightTurningMotorReversed,
               CanConstants.BACK_RIGHT_MODULE_STEER_OFFSET)));
 
-  //FIXME: The gyro used by the robot. Update if you use a different gyro. 
+  //FIXME: Configure your robot's gyro here.
   private final Gyro m_gyro = new ADXRS450_Gyro();
 
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
