@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.auto.SplineAuto;
+import frc.robot.commands.auto.paths.Figure8Path;
 import frc.robot.commands.swerve.SetSwerveDriveCmd;
 import frc.robot.commands.swerve.ZeroHeadingCmd;
 import frc.robot.subsystems.SwerveSys;
@@ -70,6 +71,7 @@ public class RobotContainer {
   private void initializeAutoChooser() {
     m_autoChooser.setDefaultOption("Do Nothing", new WaitCommand(0));
     m_autoChooser.addOption("Spline", new SplineAuto(m_swerveSys));
+    m_autoChooser.addOption("Figure 8", new Figure8Path(m_swerveSys));
 
     SmartDashboard.putData("Auto Selector", m_autoChooser);
 
