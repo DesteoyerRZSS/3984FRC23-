@@ -81,7 +81,6 @@ public class SwerveSys extends SubsystemBase {
 
   //FIXME: Configure your robot's gyro here.
   private final Gyro m_gyro = new ADXRS450_Gyro();
-
   private PIDController m_xController = new PIDController(DriveConstants.kP_X, 0, DriveConstants.kD_X);
   private PIDController m_yController = new PIDController(DriveConstants.kP_Y, 0, DriveConstants.kD_Y);
   private ProfiledPIDController m_turnController = new ProfiledPIDController(
